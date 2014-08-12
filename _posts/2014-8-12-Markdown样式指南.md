@@ -4,7 +4,7 @@ title: Markdown样式指南
 ---
 译自：[Markdown Style Guide](http://www.jekyllnow.com/Markdown-Style-Guide/)
 
-本文是Jekyll Now中的使用的样式的demo, 原文件在[这里](./2014-8-12-Markdown样式指南.md)
+本文是Jekyll Now中的使用的样式的demo, 原文件在[这里](https://raw.githubusercontent.com/barryclark/www.jekyllnow.com/gh-pages/_posts/2014-6-19-Markdown-Style-Guide.md)
 
 这是一个段落，被空格所包围(就是上下都要空行分隔的意思)。下面介绍一些标题头，这些样式来自Github的Markdown样式。
 
