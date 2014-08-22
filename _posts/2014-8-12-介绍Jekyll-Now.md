@@ -1,6 +1,6 @@
 ---
 layout: post
-介绍Jekyll Now
+title: 介绍Jekyll Now
 ---
 
 缘起
