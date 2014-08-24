@@ -26,3 +26,4 @@ title: 介绍Jekyll Now
 ======
 熟悉了一下超链接和插入图片的方式。之所以有来折腾Jekyll now,是因为想要翻译Ruby Hack Guides，其中使用Jekyll和另一标记语言RedCloth。
 
+不太喜欢Jekyll Now的样式，想要尝试一下其他的Jekyll 模板。比如Jekyll Boostrap。
