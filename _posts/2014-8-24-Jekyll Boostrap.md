@@ -16,7 +16,5 @@ Github地址: <https://github.com/plusjade/jekyll-bootstrap>
 
 ## 后记
 ----
-改变想法了，觉得Jekyll Now很好，自己也学习了Liquid，等有空了自己还是折腾Jekyll Now比较好。
-
-
+改变想法了，觉得Jekyll Now很好(简洁)，自己也学习了Liquid，等有空了自己还是折腾Jekyll Now比较好。
 
