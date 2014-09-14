@@ -203,7 +203,7 @@ You can also override `after_sign_in_path_for` and `after_sign_out_path_for` to 
 
 Notice that if your Devise model is called `Member` instead of `User`, for example, then the helpers available are:
 
-**注意**:如果你的应用程序为Member而不是User，如下的辅助类将可使用: 
+**注意**:如果你的应用程序为Member而不是User，如下的辅助类将可使用(应用程序中经常可以看到这些变量的身影): 
 
 {% highlight ruby %}
 before_action :authenticate_member!
@@ -219,7 +219,7 @@ member_session
 
 The Devise method in your models also accepts some options to configure its modules. For example, you can choose the cost of the encryption algorithm with:
 
-Devise模型中的方法接受选项配置，配置其模块。例如，可以选择加密算法的花费。
+Devise模型中的方法接受选项配置，配置其模块。例如，可以选择加密算法的花费(加密花费的时间越长，密码越难破解)。
 
 {% highlight ruby %}
 devise :database_authenticatable, :registerable, :confirmable, :recoverable, stretches: 20
@@ -409,6 +409,8 @@ Remember that Devise uses flash messages to let users know if sign in was succes
 
 记住: Devise使用flash消息通知用户登录是成功还是失败。Devise希望应用程序调用`flash[:notice]`和`flash[:alert]`。不要打印整个flash哈希，而是仅打印特定的键。Devise添加了`:timedout`到flash哈希中，如果想要打印整个hash，请删除该键。
 
+> Rails程序中，flash消息和session会话都可以存储变量。
+
 ### Configuring routes
 
 Devise also ships with default routes. If you need to customize them, you should probably be able to do it through the devise_for method. It accepts several options like :class_name, :path_prefix and so on, including the possibility to change path names for I18n:
@@ -433,13 +435,13 @@ devise_scope :user do
 end
 {% endhighlight %}
 
-This way you tell Devise to use the scope `:user` when "/sign_in" is accessed. Notice `devise_scope` is also aliased as `as` in your router.
+This way you tell Devise to use the scope `:user` when `/sign_in` is accessed. Notice `devise_scope` is also aliased as `as` in your router.
 
 ### I18n
 
 Devise uses flash messages with I18n with the flash keys :notice and :alert. To customize your app, you can set up your locale file:
 
-Devise使用带有国际化的flash消息的:notice和:alert等flash键。为了定制应用，需要设置locale文件(locales文件夹)
+Devise使用带有国际化的flash消息的:notice和:alert等flash键。为了定制应用，需要设置locale文件(locales文件夹下的文件): 
 
 {% highlight yaml %}
 en:
@@ -449,6 +451,8 @@ en:
 {% endhighlight %}
 
 You can also create distinct messages based on the resource you've configured using the singular name given in routes:
+
+可以创建基于资源的独特的消息，只需使用在路由中给定的单数名称来配置:
 
 {% highlight yaml %}
 en:
@@ -461,6 +465,8 @@ en:
 {% endhighlight %}
 
 The Devise mailer uses a similar pattern to create subject messages:
+
+Devise的mailer使用详细的模式创建对象消息: 
 
 {% highlight yaml %}
 en:
@@ -475,13 +481,19 @@ en:
 
 Take a look at our locale file to check all available messages. You may also be interested in one of the many translations that are available on our wiki:
 
+参考一下locale文件从而检查所有可用的信息。你也许会对wiki中可用的翻译的信息刚兴趣:
+
 https://github.com/plataformatec/devise/wiki/I18n
 
 Caution: Devise Controllers inherit from ApplicationController. If your app uses multiple locales, you should be sure to set I18n.locale in ApplicationController
 
+**注意**：Devise控制器继承自ApplicationController。如果使用了多个locales，确保在ApplicationController设置了I18n.locale。
+
 ### Test helpers
 
 Devise includes some test helpers for functional specs. In order to use them, you need to include Devise in your functional tests by adding the following to the bottom of your `test/test_helper.rb` file:
+
+Devise为功能描述提供了一些测试辅助类。为了使用他们，需要在功能测试文件`test/test_helper.rb`中包含如下的功能模块。
 
 {% highlight ruby %}
 class ActionController::TestCase
@@ -491,6 +503,8 @@ end
 
 If you are using RSpec, you can put the following inside a file named `spec/support/devise.rb` or in your `spec/spec_helper.rb`:
 
+如果你使用RSpec，需要在`spec/support/devise.rb`或者`spec/spec_helper.rb`放置如下的内容: 
+
 {% highlight ruby %}
 RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
@@ -498,6 +512,10 @@ end
 {% endhighlight %}
 
 Now you are ready to use the `sign_in` and `sign_out` methods. Such methods have the same signature as in controllers:
+
+现在，准备好使用`sign_in`和`sign_out`方法了。这些方法在控制器中拥有如下的相同签名：
+
+看到 ========
 
 {% highlight ruby %}
 sign_in :user, @user   # sign_in(scope, resource)
@@ -564,6 +582,8 @@ Keep in mind that those models will have completely different routes. They **do 
 ### Other ORMs
 
 Devise supports ActiveRecord (default) and Mongoid. To choose other ORM, you just need to require it in the initializer file.
+
+Devise支持ActiveRecord(默认)以及Mongoid。为了使用其他的ORM，需要在initializer文件中require相依的gem包。
 
 ## Additional information
 
