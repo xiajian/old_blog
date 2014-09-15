@@ -515,8 +515,6 @@ Now you are ready to use the `sign_in` and `sign_out` methods. Such methods have
 
 现在，准备好使用`sign_in`和`sign_out`方法了。这些方法在控制器中拥有如下的相同签名：
 
-看到 ========
-
 {% highlight ruby %}
 sign_in :user, @user   # sign_in(scope, resource)
 sign_in @user          # sign_in(resource)
@@ -527,18 +525,25 @@ sign_out @user         # sign_out(resource)
 
 There are two things that are important to keep in mind:
 
+有两件需要谨记的事情： 
 1. These helpers are not going to work for integration tests driven by Capybara or Webrat. They are meant to be used with functional tests only. Instead, fill in the form or explicitly set the user in session;
 
+- 这些辅助对使用Capybara或Webrat驱动的继承测试不起作用。但这不意味着其只能用在功能测试中，可以通过表单填充或显式在session中设置。
+
 2. If you are testing Devise internal controllers or a controller that inherits from Devise's, you need to tell Devise which mapping should be used before a request. This is necessary because Devise gets this information from the router, but since functional tests do not pass through the router, it needs to be told explicitly. For example, if you are testing the user scope, simply do:
+
+- 如果测试Devise的内部控制器或者继承自Devise的控制器，需要告诉Devise在请求之前，设置Devise使用何种映射。由于Devise通过路由获取信息，而功能测试不经过路由，所以需要显式通知。例如，如果测试user scope，操作如下:
 
     {% highlight ruby %}
     @request.env["devise.mapping"] = Devise.mappings[:user]
     get :new
     {% endhighlight %}
 
-### Omniauth
+### 授权(Omniauth)
 
 Devise comes with Omniauth support out of the box to authenticate with other providers. To use it, just specify your omniauth configuration in `config/initializers/devise.rb`:
+
+Devise带有Omniauth支持，从而通过盒子支持其他提供器。为了使用它，只需要在`config/initializers/devise.rb`中指定授权配置:
 
 {% highlight ruby %}
 config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
@@ -546,9 +551,11 @@ config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
 You can read more about Omniauth support in the wiki:
 
+可以在wiki中夺取更多的授权支持: 
+
 * https://github.com/plataformatec/devise/wiki/OmniAuth:-Overview
 
-### Configuring multiple models
+### 配置多个模型(Configuring multiple models)
 
 Devise allows you to set up as many Devise models as you want. If you want to have an Admin model with just authentication and timeout features, in addition to the User model above, just run:
 
@@ -577,7 +584,11 @@ admin_session
 
 Alternatively, you can simply run the Devise generator.
 
+可选的，可以简单的运行Devise生成器。
+
 Keep in mind that those models will have completely different routes. They **do not** and **cannot** share the same controller for sign in, sign out and so on. In case you want to have different roles sharing the same actions, we recommend you to use a role-based approach, by either providing a role column or using a dedicated gem for authorization.
+
+谨记：这些模型将有完全不同的路由。不能也不应该在sign in和sign out等时共享相同的控制器。在这种情况下，相同方法可能有不同的角色，推荐使用基于角色的方法，或者提供规则列，或是使用特定的授权gem包。
 
 ### Other ORMs
 
@@ -616,3 +627,7 @@ https://github.com/plataformatec/devise/graphs/contributors
 MIT License. Copyright 2009-2014 Plataformatec. http://plataformatec.com.br
 
 You are not granted rights or licenses to the trademarks of the Plataformatec, including without limitation the Devise name or logo.
+
+## 后记
+
+看完Devise,无非获得了这样的一些认识，Rack-based，`current_user`，devise视图和控制器，模型和devise，一些可用的方法: `before_action :authenticate_member!`、`user_session`等。
