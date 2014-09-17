@@ -125,17 +125,13 @@ After you install Devise and add it to your Gemfile, you need to run the generat
 
 在安装完Devise之后，并将其添加到Gemfile中，然后需要运行生成器:
 
-{% endhighlight %}console
-rails generate devise:install
-{% endhighlight %}
+>  rails generate devise:install
 
 The generator will install an initializer which describes ALL Devise's configuration options and you MUST take a look at it. When you are done, you are ready to add Devise to any of your models using the generator:
 
 生成器将安装一个描述Devise所有配置选项的initializer，所以必须要仔细阅读。完成上述操作后，可以通过生成器将devise添加到任何模型中。
 
-{% endhighlight %}console
-rails generate devise MODEL
-{% endhighlight %}
+> rails generate devise MODEL
 
 Replace MODEL with the class name used for the application’s users (it’s frequently `User` but could also be `Admin`). This will create a model (if one does not exist) and configure it with default Devise modules. The generator also configures your `config/routes.rb` file to point to the Devise controller.
 
@@ -332,9 +328,7 @@ Since Devise is an engine, all its views are packaged inside the gem. These view
 
 由于Devise是一个engine，所有的视图都被打包到gem中。这些视图可能会帮助你开始，但是用不了多久，你就可能想要修改它了。如果是这样，你只需要调用如下的生成器，他将把Devise中所有的视图拷贝到应用程序中。
 
-{% endhighlight %}console
-rails generate devise:views
-{% endhighlight %}
+> rails generate devise:views
 
 If you have more than one Devise model in your application (such as `User` and `Admin`), you will notice that Devise uses the same views for all models. Fortunately, Devise offers an easy way to customize views. All you need to do is set `config.scoped_views = true` inside the `config/initializers/devise.rb` file.
 
@@ -344,17 +338,13 @@ After doing so, you will be able to have views based on the role like `users/ses
 
 之后，将拥有诸如`users/sessions/new`和`admins/sessions/new`这样的视图。如果没有这样的视图，Devise将使用默认的视图`devise/sessions/new`。同样也可使用生成器生成scoped视图:
 
-{% endhighlight %}console
-rails generate devise:views users
-{% endhighlight %}
+> rails generate devise:views users
 
 If you want to generate only a few set of views, like the ones for the `registrable` and `confirmable` module, you can pass a list of modules to the generator with the `-v` flag.
 
 如果，想要生成一组视图，比如`registrable`和`confirmable`模块，可以通过-v标志传递一组模块。
 
-{% endhighlight %}console
-rails generate devise:views -v registrations confirmations
-{% endhighlight %}
+> rails generate devise:views -v registrations confirmations
 
 ### Configuring controllers
 
