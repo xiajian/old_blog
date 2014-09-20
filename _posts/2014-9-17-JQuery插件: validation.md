@@ -5,6 +5,10 @@ title: JQuery插件: validation
 
 某个部分需要用到该插件来验证表单，所以需要了解一下，下面是其文档的部分翻译:
 
+- 文档的地址: http://jqueryvalidation.org/documentation/
+- 指导原则地址: http://jqueryvalidation.org/reference
+- validate选项: http://jqueryvalidation.org/validate
+
 ## 以从未有过的方式验证表单(Validate forms like you've never validated before!)
 
 **"jQuery不是已经使插件的编写更加容易(But doesn't jQuery make it easy to write your own validation plugin)？"**
