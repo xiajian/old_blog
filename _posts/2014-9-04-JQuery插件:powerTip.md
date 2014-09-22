@@ -428,3 +428,10 @@ Note that only mouse events (mouseenter, mouseleave, hover, mousemove) have the 
 ----
 
 关于提示jQuery插件的问题，其实世界上存在很多的提示插件，clueTip, powerTip以及PoshyTip，关于这些Tip的选择，其实，实际开发中要求要比其提供的实际的例子中困难的多。试了几个插件，总是有些不太满意的地方。细想，何必太较真，不较真不理解个彻底又不太符合自己的个性，好歹也自诩将要称为NB的程序员的。有空总结一下相关的Tip。
+
+网站上的提示最后还是使用的powerTip实现的。虽说使用的是powerTip，实际上使用的Ruby的gem包(lazy_high_chart)包装的powerTip，调用powerTip的方法为: 
+
+> <%= high_stock("quotes_chart", @quotes_chart) %>
+
+这里一看就知道使用了Ruby的方法，但使用git grep和sublime的全局搜索却只能找到调用的代码，而找不到定义的代码。使用vim-rails的gf命令跳转到类定义的地方，发现是个Gem包，并在lazy_high_charts/layout_helper.rb中到了high_stock的定义。
+
