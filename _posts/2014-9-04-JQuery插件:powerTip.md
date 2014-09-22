@@ -190,7 +190,7 @@ followMouse     |	false 	 | Boolean | 	设置提示跟随鼠标
 mouseOnToPopup  | false 	 | Boolean |	允许鼠标停在tooltip上。这允许用户和提示中的内容进行交互，仅在followMouse设置为false时起作用。
 placement 	    | 'n' 	   | String  |	相对于元素的提示所在的位置。其值可以是n, e, s, w, nw, ne, sw, se, nw-alt, ne-alt, sw-alt, or se-alt(north,east,south,west). 仅当followMouse设置为false时起作用。
 smartPlacement 	| false 	 | Boolean | 	When enabled the plugin will try to keep tips inside the browser view port. If a tooltip would extend outside of the view port then its placement will be changed to an orientation that would be entirely within the current view port. Only applies if followMouse is set to false.
-popupId         |	'powerTip'| String |	提示div的HTML id属性
+popupId         |	'powerTip'| String |	提示div的HTML id属性,插件会默认生成相应的div
 offset 	        | 10 	      | Number |	提示的像素偏移。在followMouse设置为真时，该设置有效。
 fadeInTime      |	200 	    | Number |	Tooltip fade-in time in milliseconds.
 fadeOutTime 	  | 100 	    | Number |	Tooltip fade-out time in milliseconds.
@@ -270,7 +270,9 @@ destroy(element) 	          | This will destroy and roll back any PowerTip insta
 
 You can also pass the API method names as strings to the powerTip() function. For example $('#element').powerTip('show'); will cause the matched element to show its tooltip.
 
-Examples
+可将API方法名作为字符串传递给powerTip函数。例如， $('#element').powerTip('show') 将会导致匹配元素上显示tooltip。
+
+样例:
 
 // run powertip on submit button
 $('#submit').powerTip();
@@ -281,21 +283,26 @@ $.powerTip.show($('#submit'));
 // close (any open) tooltip
 $.powerTip.hide();
 
-Notes
-
+> 注意:  
+> 记住PowerTip的规则是一次只显示一个tip，所以任何打开tip的动作都会关闭先前的tip。可以通过show()方法强制改变powerTip的默认规则。
     Remember that one of the rules for PowerTip is that only one tooltip will be visible at a time, so any open tooltips will be closed before a new tooltip is shown.
     Forcing a tooltip to open via the show() method does not disable the normal hover tooltips for any other elements. If the user moves their cursor to another element with a tooltip after you call show() then the tooltip you opened will be closed so that the tooltip for the user’s current hover target can open.
 
 
 ##PowerTip Events
+
 PowerTip will trigger several events during operation that you can bind custom code to. These events make it much easier to extend the plugin and work with tooltips during their life cycle. Using events should not be needed in most cases, they are provided for developers who need a deeper level of integration with the tooltip system.
-List of events
-Event Name 	Description
-powerTipPreRender 	The pre-render event happens before PowerTip fills the content of the tooltip. This is a good opportunity to set the tooltip content data (e.g. data-powertip, data-powertipjq).
-powerTipRender 	Render happens after the content has been placed into the tooltip, but before the tooltip has been displayed. Here you can modify the tooltip content manually or attach events.
-powerTipOpen 	This happens after the tooltip has completed its fade-in cycle and is fully open. You might want to use this event to do animations or add other bits of visual sugar.
-powerTipClose 	Occurs after the tooltip has completed its fade-out cycle and fully closed, but the tooltip content is still in place. This event is useful do doing cleanup work after the user is done with the tooltip.
-Using events
+
+### 事件列表
+
+ Event Name       |     	Description
+----------------- | ---------------------------------------------------------------------------------------------
+powerTipPreRender |	The pre-render event happens before PowerTip fills the content of the tooltip. This is a good opportunity to set the tooltip content data (e.g. data-powertip, data-powertipjq).
+powerTipRender    |	Render happens after the content has been placed into the tooltip, but before the tooltip has been displayed. Here you can modify the tooltip content manually or attach events.
+powerTipOpen      |	This happens after the tooltip has completed its fade-in cycle and is fully open. You might want to use this event to do animations or add other bits of visual sugar.
+powerTipClose 	  | Occurs after the tooltip has completed its fade-out cycle and fully closed, but the tooltip content is still in place. This event is useful do doing cleanup work after the user is done with the tooltip.
+
+### 使用事件 Using events
 
 You can use these events by binding to them on the element(s) that you ran powerTip() on, the recommended way to do that is with the jQuery on() method. For example:
 
@@ -335,20 +342,21 @@ Smart placement is a feature that will attempt to keep non-mouse-follow tooltips
 It does this by detecting that a tooltip would appear outside of the view port, then trying a series of other placement options until it finds one that isn’t going to be outside of the view port. You can define the placement fall backs and priorities yourself by overriding them in the $.fn.powerTip.smartPlacementLists object.
 
 These are the default smart placement priority lists:
-$.fn.powerTip.smartPlacementLists = {
-	n: ['n', 'ne', 'nw', 's'],
-	e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
-	s: ['s', 'se', 'sw', 'n'],
-	w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
-	nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
-	ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
-	sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-	se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
-	'nw-alt': ['nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e'],
-	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
-	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
-	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
-};
+
+    $.fn.powerTip.smartPlacementLists = {
+    	n: ['n', 'ne', 'nw', 's'],
+    	e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
+    	s: ['s', 'se', 'sw', 'n'],
+    	w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
+    	nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
+    	ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
+    	sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
+    	se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
+    	'nw-alt': ['nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e'],
+    	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
+    	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
+    	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
+    };
 
 As you can see, each placement option has an array of placement options that it can fall back on. The first item in the array is the highest priority placement, the last is the lowest priority. The last item in the array is also the default. If none of the placement options can be fully displayed within the view port then the last item in the array is the placement used to show the tooltip.
 
