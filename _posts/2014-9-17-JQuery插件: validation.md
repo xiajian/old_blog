@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JQuery插件: validation
+title: JQuery插件-validation
 ---
 
 某个部分需要用到该插件来验证表单，所以需要了解一下，下面是其文档的部分翻译:
